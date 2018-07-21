@@ -1098,10 +1098,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   paddleRenderer: {fileID: 1069697454}
-<<<<<<< HEAD
-=======
-<<<<<<< .merge_file_a17028
->>>>>>> 3d8f1b5ffa70793f89699e514819b4977b64f069
   paddleSpeed: 7
   gameArea: {fileID: 674269290}
   ballRenderer: {fileID: 224099521}
