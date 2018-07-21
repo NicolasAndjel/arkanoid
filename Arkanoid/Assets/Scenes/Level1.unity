@@ -1098,7 +1098,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   paddleRenderer: {fileID: 1069697454}
-  paddleSpeed: 10
+  paddleSpeed: 7
   gameArea: {fileID: 674269290}
   ballRenderer: {fileID: 224099521}
   ballSpeed: 2.5
@@ -1189,9 +1189,6 @@ MonoBehaviour:
   - {fileID: 306589126}
   - {fileID: 2052855603}
   - {fileID: 1782244259}
-  powerLarge: 0
-  slowBall: 0
-  tripleBall: 0
 --- !u!4 &301198399
 Transform:
   m_ObjectHideFlags: 0
