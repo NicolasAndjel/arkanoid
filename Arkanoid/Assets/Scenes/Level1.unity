@@ -1100,13 +1100,6 @@ MonoBehaviour:
   paddleRenderer: {fileID: 1069697454}
 <<<<<<< .merge_file_a17028
   paddleSpeed: 7
-=======
-<<<<<<< HEAD
-  paddleSpeed: 6
-=======
-  paddleSpeed: 11
->>>>>>> 7781fc74baa7bf8fb654a4c03367d79a87105573
->>>>>>> .merge_file_a14324
   gameArea: {fileID: 674269290}
   ballRenderer: {fileID: 224099521}
   ballSpeed: 2.5
