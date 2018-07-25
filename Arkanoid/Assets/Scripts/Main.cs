@@ -50,7 +50,7 @@ public class Main : MonoBehaviour {
     BoxCollider2D rightWallCollider;
     BoxCollider2D topWallCollider;
     BoxCollider2D bottomWallCollider;
-    BoxCollider2D paddleCollider;
+    public BoxCollider2D paddleCollider;
 
     //Power Ups
     public bool powerLarge = false;
@@ -64,7 +64,7 @@ public class Main : MonoBehaviour {
     bool extraBall2isActive = false;
     public int countPowerUp;
     System.Random rnd = new System.Random();
-    int pillNumber;
+    public int pillNumber;
     public GameObject[] pillArray;
     Vector3 lastBrokenBrick;
     public int bricksTillPowerup;
@@ -146,44 +146,22 @@ public class Main : MonoBehaviour {
             #endregion
 
             #region Power Ups
-            
 
+            
+            
 
             if ((countPowerUp != 0) && (countPowerUp % bricksTillPowerup == 0))
             {
                 pillNumber = rnd.Next(0, 3);
                 GameObject thisPill = pillArray[pillNumber];
-
                 //activar la pill en el lugar del último brick.
-                Pills pills = thisPill.GetComponent<Pills>(); // dame el script que tiene asignado este objeto (bricks[i]) de unity.
+                //Pills pills = thisPill.GetComponent<Pills>(); // dame el script que tiene asignado este objeto (bricks[i]) de unity. Ya no lo necesito pero lo dejo por si quiero acceder
                 thisPill.SetActive(true);
                 thisPill.transform.position = lastBrokenBrick; //
                 countPowerUp ++;
-
-                //desaparecer la pill cuando toque la paddle
-                Vector3 pillPosition = thisPill.transform.position;
-                BoxCollider2D pillCollider = thisPill.GetComponent<BoxCollider2D>();
-                if (paddleCollider.bounds.Contains(pillPosition))
-                {
-                    switch (pillNumber)
-                    {
-                        case 0:
-                            powerLarge = true;
-                            break;
-
-                        case 1:
-                            slowBall = true;
-                            break;
-
-                        case 2:
-                            tripleBall = true;
-                            break;
-                    }
-                    thisPill.SetActive(false);
-                }
             }
 
-           
+
 
             //Enlarge Paddle
             if (powerLarge == true)
@@ -196,7 +174,7 @@ public class Main : MonoBehaviour {
             //SlowBall
             if (slowBall == true)
             {
-                ballSpeed -= 1;
+                ballSpeed -= 0.7f;
                 slowBall = false;
             }
 

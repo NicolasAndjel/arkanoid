@@ -1235,12 +1235,14 @@ MonoBehaviour:
   - {fileID: 306589126}
   - {fileID: 2052855603}
   - {fileID: 1782244259}
+  paddleCollider: {fileID: 0}
   powerLarge: 0
   slowBall: 0
   tripleBall: 0
   extraball1: {fileID: 1555401532}
   extraball2: {fileID: 415919644}
   countPowerUp: 0
+  pillNumber: 0
   pillArray:
   - {fileID: 530987643}
   - {fileID: 2010166509}
@@ -1577,6 +1579,7 @@ GameObject:
   - component: {fileID: 426777055}
   - component: {fileID: 426777054}
   - component: {fileID: 426777057}
+  - component: {fileID: 426777058}
   m_Layer: 0
   m_Name: triplePill
   m_TagString: Untagged
@@ -1670,7 +1673,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   main: {fileID: 301198398}
-  pillActive: 0
+  pillDestroy: 0
+--- !u!61 &426777058
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 426777053}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.16, y: 0.07}
+    newSize: {x: 0.16, y: 0.07}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.16, y: 0.07}
+  m_EdgeRadius: 0
 --- !u!1 &431042184
 GameObject:
   m_ObjectHideFlags: 0
@@ -2038,6 +2066,7 @@ GameObject:
   - component: {fileID: 530987645}
   - component: {fileID: 530987644}
   - component: {fileID: 530987647}
+  - component: {fileID: 530987648}
   m_Layer: 0
   m_Name: enlargePill
   m_TagString: Untagged
@@ -2131,7 +2160,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   main: {fileID: 301198398}
-  pillActive: 0
+  pillDestroy: 0
+--- !u!61 &530987648
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 530987643}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.16, y: 0.07}
+    newSize: {x: 0.16, y: 0.07}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.16, y: 0.07}
+  m_EdgeRadius: 0
 --- !u!1001 &550176398
 Prefab:
   m_ObjectHideFlags: 0
@@ -6810,6 +6864,7 @@ GameObject:
   - component: {fileID: 2010166511}
   - component: {fileID: 2010166510}
   - component: {fileID: 2010166513}
+  - component: {fileID: 2010166514}
   m_Layer: 0
   m_Name: slowPill
   m_TagString: Untagged
@@ -6903,7 +6958,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   main: {fileID: 301198398}
-  pillActive: 0
+  pillDestroy: 0
+--- !u!61 &2010166514
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2010166509}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.16, y: 0.07}
+    newSize: {x: 0.16, y: 0.07}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.16, y: 0.07}
+  m_EdgeRadius: 0
 --- !u!1 &2011952444 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1154153636448722, guid: 1f6b10e681b570c4b841bbf978e58c30,
