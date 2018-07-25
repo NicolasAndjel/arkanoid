@@ -62,6 +62,12 @@ public class Main : MonoBehaviour {
     Vector3 extraball2Direction;
     bool extraBall1isActive = false;
     bool extraBall2isActive = false;
+    public int countPowerUp;
+    System.Random rnd = new System.Random();
+    int pillNumber;
+    public GameObject[] pillArray;
+    Vector3 lastBrokenBrick;
+
 
     // Use this for initialization
     void Start () {
@@ -81,8 +87,6 @@ public class Main : MonoBehaviour {
         if(!losePanel.activeInHierarchy && !winPanel.activeInHierarchy)
         {
             
-           
-
             //Paddle Behavior
             paddleDirection.x = Input.GetAxis("Horizontal");
             Vector3 paddleNextPosition = paddleRenderer.transform.position + paddleDirection * paddleSpeed * Time.deltaTime;
@@ -95,6 +99,7 @@ public class Main : MonoBehaviour {
 
 
             #region Ball Behavior
+
             if (Input.GetKeyUp(KeyCode.Space))
             {
                 kickOff = true;
@@ -112,8 +117,6 @@ public class Main : MonoBehaviour {
             Vector3 ballNextPosition = ballRenderer.transform.position + ballDirection * ballSpeed * Time.deltaTime;
             Vector3 extraball1NextPosition;
             Vector3 extraball2NextPosition;
-
-            
 
 
             if (
@@ -142,6 +145,15 @@ public class Main : MonoBehaviour {
 
             #region Power Ups
             //LargePaddle
+
+            if (countPowerUp == 8)
+            {
+                //randomizePowerUp.random;
+                pillNumber = rnd.Next(0, 2);
+                pillArray[pillNumber].transform.position = lastBrokenBrick;
+            }
+
+
             if (powerLarge == true)
             {
                 paddleRenderer.transform.localScale += new Vector3(0.5f, 0, 0);
@@ -254,8 +266,10 @@ public class Main : MonoBehaviour {
                     ballDirection.x *= -1;
                     if (brick.color != "Grey") // busco la propiedad color dentro de ese script.
                     {
+                        lastBrokenBrick = bricks[i].transform.position;
                         bricks[i].SetActive(false);
                         score += 100;
+                        countPowerUp++;
                     }
                 }
                 else if (brickCollider.bounds.Contains(ballNextPosition))
@@ -263,8 +277,10 @@ public class Main : MonoBehaviour {
                     ballDirection.y *= -1;
                     if (brick.color != "Grey") // busco la propiedad color dentro de ese script.
                     {
+                        lastBrokenBrick = bricks[i].transform.position;
                         bricks[i].SetActive(false);
                         score += 100;
+                        countPowerUp++;
                     }
                 }
                 
@@ -274,8 +290,10 @@ public class Main : MonoBehaviour {
                     extraball1Direction.x *= -1;
                     if (brick.color != "Grey") // busco la propiedad color dentro de ese script.
                     {
+                        lastBrokenBrick = bricks[i].transform.position;
                         bricks[i].SetActive(false);
                         score += 100;
+                        countPowerUp++;
                     }
                 }
                 else if (brickCollider.bounds.Contains(extraball1NextPosition))
@@ -283,8 +301,10 @@ public class Main : MonoBehaviour {
                     extraball1Direction.y *= -1;
                     if (brick.color != "Grey") // busco la propiedad color dentro de ese script.
                     {
+                        lastBrokenBrick = bricks[i].transform.position;
                         bricks[i].SetActive(false);
                         score += 100;
+                        countPowerUp++;
                     }
                 }
 
@@ -294,8 +314,10 @@ public class Main : MonoBehaviour {
                     extraball2Direction.x *= -1;
                     if (brick.color != "Grey") // busco la propiedad color dentro de ese script.
                     {
+                        lastBrokenBrick = bricks[i].transform.position;
                         bricks[i].SetActive(false);
                         score += 100;
+                        countPowerUp++;
                     }
                 }
                 else if (brickCollider.bounds.Contains(extraball2NextPosition))
@@ -303,8 +325,10 @@ public class Main : MonoBehaviour {
                     extraball2Direction.y *= -1;
                     if (brick.color != "Grey") // busco la propiedad color dentro de ese script.
                     {
+                        lastBrokenBrick = bricks[i].transform.position;
                         bricks[i].SetActive(false);
                         score += 100;
+                        countPowerUp++;
                     }
                 }
             }
