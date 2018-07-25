@@ -67,6 +67,8 @@ public class Main : MonoBehaviour {
     int pillNumber;
     public GameObject[] pillArray;
     Vector3 lastBrokenBrick;
+    public int bricksTillPowerup;
+    public float pillsSpeed;
 
 
     // Use this for initialization
@@ -144,16 +146,27 @@ public class Main : MonoBehaviour {
             #endregion
 
             #region Power Ups
-            //LargePaddle
+            
 
-            if (countPowerUp == 8)
+
+            if ((countPowerUp != 0) && (countPowerUp % bricksTillPowerup == 0))
             {
-                //randomizePowerUp.random;
-                pillNumber = rnd.Next(0, 2);
-                pillArray[pillNumber].transform.position = lastBrokenBrick;
+                pillNumber = rnd.Next(0, 3);
+                GameObject thisPill = pillArray[pillNumber];
+
+                Pills pills = thisPill.GetComponent<Pills>(); // dame el script que tiene asignado este objeto (bricks[i]) de unity.
+                pills.pillActive = true;
+                thisPill.SetActive(true);
+                thisPill.transform.position = lastBrokenBrick;
+                countPowerUp ++;
             }
 
+            //if (pillOut)
+            //{
+            //    pillArray[pillNumber].SetActive(true);
+            //}
 
+            //Enlarge Paddle
             if (powerLarge == true)
             {
                 paddleRenderer.transform.localScale += new Vector3(0.5f, 0, 0);
