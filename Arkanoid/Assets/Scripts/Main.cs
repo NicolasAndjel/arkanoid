@@ -154,17 +154,36 @@ public class Main : MonoBehaviour {
                 pillNumber = rnd.Next(0, 3);
                 GameObject thisPill = pillArray[pillNumber];
 
+                //activar la pill en el lugar del último brick.
                 Pills pills = thisPill.GetComponent<Pills>(); // dame el script que tiene asignado este objeto (bricks[i]) de unity.
-                pills.pillActive = true;
                 thisPill.SetActive(true);
-                thisPill.transform.position = lastBrokenBrick;
+                thisPill.transform.position = lastBrokenBrick; //
                 countPowerUp ++;
+
+                //desaparecer la pill cuando toque la paddle
+                Vector3 pillPosition = thisPill.transform.position;
+                BoxCollider2D pillCollider = thisPill.GetComponent<BoxCollider2D>();
+                if (paddleCollider.bounds.Contains(pillPosition))
+                {
+                    switch (pillNumber)
+                    {
+                        case 0:
+                            powerLarge = true;
+                            break;
+
+                        case 1:
+                            slowBall = true;
+                            break;
+
+                        case 2:
+                            tripleBall = true;
+                            break;
+                    }
+                    thisPill.SetActive(false);
+                }
             }
 
-            //if (pillOut)
-            //{
-            //    pillArray[pillNumber].SetActive(true);
-            //}
+           
 
             //Enlarge Paddle
             if (powerLarge == true)
@@ -185,7 +204,7 @@ public class Main : MonoBehaviour {
 
             if (tripleBall == true)
             {
-                extraball1.transform.position = ballNextPosition;
+                extraball1.transform.position = ballNextPosition; 
                 extraball2.transform.position = ballNextPosition;
                 extraball1Direction.x = -ballDirection.x;
                 extraball1Direction.y = ballDirection.y;

@@ -1245,7 +1245,7 @@ MonoBehaviour:
   - {fileID: 530987643}
   - {fileID: 2010166509}
   - {fileID: 426777053}
-  bricksTillPowerup: 3
+  bricksTillPowerup: 4
   pillsSpeed: 1.5
 --- !u!4 &301198399
 Transform:

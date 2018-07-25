@@ -15,11 +15,8 @@ public class Pills : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (pillActive)
-        {
-            float pillSpeed = main.pillsSpeed;
-            this.transform.position += pillDirection * pillSpeed * Time.deltaTime;
-        }
+        float pillSpeed = main.pillsSpeed;
+        this.transform.position += pillDirection * pillSpeed * Time.deltaTime;
         
     }
 }
