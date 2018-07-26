@@ -29,7 +29,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4144883872605098
 Transform:
   m_ObjectHideFlags: 1
@@ -96,8 +96,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b4af0ba38370b9498b2525bc01ee3df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  main: {fileID: 0}
-  pillDestroy: 0
+  pillType: enlarge
 --- !u!212 &212263030336729334
 SpriteRenderer:
   m_ObjectHideFlags: 1

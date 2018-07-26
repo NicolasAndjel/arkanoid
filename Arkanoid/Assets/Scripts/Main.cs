@@ -50,12 +50,12 @@ public class Main : MonoBehaviour {
     BoxCollider2D rightWallCollider;
     BoxCollider2D topWallCollider;
     BoxCollider2D bottomWallCollider;
-    public BoxCollider2D paddleCollider;
+    public static BoxCollider2D paddleCollider;
 
     //Power Ups
-    public bool powerLarge = false;
-    public bool slowBall = false;
-    public bool tripleBall = false;
+    public static bool powerLarge = false;
+    public static bool slowBall = false;
+    public static bool tripleBall = false;
     public GameObject extraball1;
     public GameObject extraball2;
     Vector3 extraball1Direction;
@@ -64,11 +64,11 @@ public class Main : MonoBehaviour {
     bool extraBall2isActive = false;
     public int countPowerUp;
     System.Random rnd = new System.Random();
-    public int pillNumber;
+    public static int pillNumber;
     public GameObject[] pillArray;
     Vector3 lastBrokenBrick;
     public int bricksTillPowerup;
-    public float pillsSpeed;
+    public static float pillsSpeed = 1.5f;
 
 
     // Use this for initialization
@@ -147,17 +147,14 @@ public class Main : MonoBehaviour {
 
             #region Power Ups
 
-            
-            
-
             if ((countPowerUp != 0) && (countPowerUp % bricksTillPowerup == 0))
             {
                 pillNumber = rnd.Next(0, 3);
                 GameObject thisPill = pillArray[pillNumber];
                 //activar la pill en el lugar del último brick.
                 //Pills pills = thisPill.GetComponent<Pills>(); // dame el script que tiene asignado este objeto (bricks[i]) de unity. Ya no lo necesito pero lo dejo por si quiero acceder
-                thisPill.SetActive(true);
-                thisPill.transform.position = lastBrokenBrick; //
+                Instantiate(thisPill, lastBrokenBrick, Quaternion.identity);
+                //thisPill.transform.position = lastBrokenBrick; //
                 countPowerUp ++;
             }
 

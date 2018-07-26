@@ -5,9 +5,10 @@ using UnityEngine;
 
 public class Pills : MonoBehaviour {
 
-    public Main main;
-    public bool pillDestroy = false;
+    public string pillType;
     Vector3 pillDirection = new Vector3(0, -1, 0);
+    float pillSpeed = Main.pillsSpeed;
+
 
     // Use this for initialization
     void Start () {
@@ -16,32 +17,28 @@ public class Pills : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        float pillSpeed = main.pillsSpeed;
+        Vector3 pillPosition = this.transform.position;
         this.transform.position += pillDirection * pillSpeed * Time.deltaTime;
 
         //desaparecer la pill cuando toque la paddle
-        Vector3 pillPosition = this.transform.position;
-        //BoxCollider2D pillCollider = this.GetComponent<BoxCollider2D>();
-        if (main.paddleCollider.bounds.Contains(pillPosition))
+        if (Main.paddleCollider.bounds.Contains(pillPosition))
         {
-            switch (main.pillNumber)
+            switch (pillType)
             {
-                case 0:
-                    main.powerLarge = true;
+                case "enlarge":
+                    Main.powerLarge = true;
                     break;
 
-                case 1:
-                    main.slowBall = true;
+                case "slowball":
+                    Main.slowBall = true;
                     break;
 
-                case 2:
-                    main.tripleBall = true;
+                case "tripleball":
+                    Main.tripleBall = true;
                     break;
             }
-            this.transform.position = new Vector3(-27,-2);
+            Destroy(gameObject);
         }
-        //main.powerLarge = false;
-        //main.slowBall = false;
-        //main.tripleBall = false;
+        
     }
 }
