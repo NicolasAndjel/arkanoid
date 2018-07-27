@@ -1235,6 +1235,9 @@ MonoBehaviour:
   - {fileID: 306589126}
   - {fileID: 2052855603}
   - {fileID: 1782244259}
+  powerLargeControl: 0
+  slowBallControl: 0
+  tripleBallControl: 0
   extraball1: {fileID: 1555401532}
   extraball2: {fileID: 415919644}
   countPowerUp: 0
@@ -1242,7 +1245,9 @@ MonoBehaviour:
   - {fileID: 1831615108308116, guid: 0ae1fe36418146e4585195ccdbb814c7, type: 2}
   - {fileID: 1997535379813988, guid: 0019aabd722a06c429075e06e2dfe038, type: 2}
   - {fileID: 1613335622796512, guid: 805772408b6d7c44cb6ec8a305241044, type: 2}
-  bricksTillPowerup: 4
+  bricksTillPowerup: 3
+  countEnlarge: 0
+  countSlowBall: 0
 --- !u!4 &301198399
 Transform:
   m_ObjectHideFlags: 0

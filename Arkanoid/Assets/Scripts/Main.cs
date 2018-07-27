@@ -56,6 +56,9 @@ public class Main : MonoBehaviour {
     public static bool powerLarge = false;
     public static bool slowBall = false;
     public static bool tripleBall = false;
+    public bool powerLargeControl = false;
+    public bool slowBallControl = false;
+    public bool tripleBallControl = false;
     public GameObject extraball1;
     public GameObject extraball2;
     Vector3 extraball1Direction;
@@ -69,6 +72,8 @@ public class Main : MonoBehaviour {
     Vector3 lastBrokenBrick;
     public int bricksTillPowerup;
     public static float pillsSpeed = 1.5f;
+    public int countEnlarge;
+    public int countSlowBall;
 
 
     // Use this for initialization
@@ -81,7 +86,8 @@ public class Main : MonoBehaviour {
 
         paddleHeightBottom = -(paddleCollider.size.y / 2);// borde inferior del paddle
         paddleHeightTop = (paddleCollider.size.y / 2);// borde superior del paddle
-
+        Vector3 paddleInitialScale = paddleRenderer.transform.localScale;
+        Vector3 paddleInitialposition = paddleRenderer.transform.position;
     }
 
     // Update is called once per frame
@@ -149,35 +155,49 @@ public class Main : MonoBehaviour {
 
             if ((countPowerUp != 0) && (countPowerUp % bricksTillPowerup == 0))
             {
-                pillNumber = rnd.Next(0, 3);
+                pillNumber = rnd.Next(0, 2);
                 GameObject thisPill = pillArray[pillNumber];
-                //activar la pill en el lugar del último brick.
                 //Pills pills = thisPill.GetComponent<Pills>(); // dame el script que tiene asignado este objeto (bricks[i]) de unity. Ya no lo necesito pero lo dejo por si quiero acceder
                 Instantiate(thisPill, lastBrokenBrick, Quaternion.identity);
-                //thisPill.transform.position = lastBrokenBrick; //
                 countPowerUp ++;
             }
 
 
-
             //Enlarge Paddle
-            if (powerLarge == true)
+            if ((powerLarge || powerLargeControl) && countEnlarge < 2)
             {
                 paddleRenderer.transform.localScale += new Vector3(0.5f, 0, 0);
+                Vector3 paddlePosition = paddleRenderer.transform.position;
+                if (paddlePosition.x > 2 )
+                {
+                    paddleRenderer.transform.position -= new Vector3(0.4f, 0, 0);
+                }
+                else if (paddlePosition.x < 2)
+                {
+                    paddleRenderer.transform.position += new Vector3(0.4f, 0, 0);
+                }
                 gameArea.transform.localScale -= new Vector3(0.1f, 0, 0);
                 powerLarge = false;
+                powerLargeControl = false;
+                countEnlarge++;
+                Debug.Log("hay " + countEnlarge + "enlarge apilados");
+
             }
 
             //SlowBall
-            if (slowBall == true)
+
+            if ((slowBall || slowBallControl) && countSlowBall < 2)
             {
                 ballSpeed -= 0.7f;
                 slowBall = false;
+                slowBallControl = false;
+                countSlowBall++;
+                Debug.Log("hay " + countSlowBall + " slow balls apiladas");
             }
 
             //tripleBall
 
-            if (tripleBall == true)
+            if (tripleBall || tripleBallControl)
             {
                 extraball1.transform.position = ballNextPosition; 
                 extraball2.transform.position = ballNextPosition;
@@ -188,6 +208,7 @@ public class Main : MonoBehaviour {
                 extraBall1isActive = true;
                 extraBall2isActive = true;
                 tripleBall = false;
+                tripleBallControl = false;
             }
             if (extraBall1isActive == true)
             {
@@ -363,8 +384,30 @@ public class Main : MonoBehaviour {
                 if (bottomWallCollider.bounds.Contains(ballNextPosition))
                 {
                     lifeQuantity -= 1;
-                    Debug.Log("Quedan " + lifeQuantity + " vidas");
                     kickOff = false;
+                    if (countSlowBall > 1)
+                    {
+                        ballSpeed = 3f;
+                        Debug.Log("La velocidad debería ser 3f, el count slowball era mayor a 1");
+                    }
+
+                    if (countEnlarge == 1)
+                    {
+                        paddleRenderer.transform.localScale -= new Vector3(0.5f, 0, 0);
+                        gameArea.transform.localScale += new Vector3(0.1f, 0, 0);
+                        Debug.Log("La paleta debería haber vuelto a su tamaño inicial, el count enlarge era igual a 1");
+                    }
+                    else if (countEnlarge > 1)
+                    {
+                        paddleRenderer.transform.localScale -= new Vector3(1f, 0, 0);
+                        gameArea.transform.localScale += new Vector3(0.2f, 0, 0);
+                        Debug.Log("La paleta debería haber vuelto a su tamaño inicial, el count enlarge era mayor a 1");
+                    }
+                    countSlowBall = 0;
+                    countEnlarge = 0;
+                    powerLarge = false;
+                    slowBall = false;
+
                     if (lifeQuantity < 0)
                     {
                         ballRenderer.transform.position = new Vector3(9999, 9999);
@@ -391,6 +434,28 @@ public class Main : MonoBehaviour {
                     lifeQuantity -= 1;
                     Debug.Log("Quedan " + lifeQuantity + " vidas");
                     kickOff = false;
+
+                    if (countSlowBall > 1)
+                    {
+                        ballSpeed = 3f;
+                        Debug.Log("La velocidad debería ser 3f, el count slowball era mayor a 1");
+                    }
+
+                    if (countEnlarge == 1)
+                    {
+                        paddleRenderer.transform.localScale -= new Vector3(0.5f, 0, 0);
+                        gameArea.transform.localScale += new Vector3(0.1f, 0, 0);
+                        Debug.Log("La paleta debería haber vuelto a su tamaño inicial, el count enlarge era igual a 1");
+                    }
+                    else if (countEnlarge > 1)
+                    {
+                        paddleRenderer.transform.localScale -= new Vector3(1f, 0, 0);
+                        gameArea.transform.localScale += new Vector3(0.2f, 0, 0);
+                        Debug.Log("La paleta debería haber vuelto a su tamaño inicial, el count enlarge era mayor a 1");
+                    }
+                    countSlowBall = 0;
+                    countEnlarge = 0;
+
                     if (lifeQuantity < 0)
                     {
                         ballRenderer.transform.position = new Vector3(9999, 9999);
