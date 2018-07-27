@@ -155,7 +155,7 @@ public class Main : MonoBehaviour {
 
             if ((countPowerUp != 0) && (countPowerUp % bricksTillPowerup == 0))
             {
-                pillNumber = rnd.Next(0, 2);
+                pillNumber = rnd.Next(0, 3);
                 GameObject thisPill = pillArray[pillNumber];
                 //Pills pills = thisPill.GetComponent<Pills>(); // dame el script que tiene asignado este objeto (bricks[i]) de unity. Ya no lo necesito pero lo dejo por si quiero acceder
                 Instantiate(thisPill, lastBrokenBrick, Quaternion.identity);
@@ -164,6 +164,7 @@ public class Main : MonoBehaviour {
 
 
             //Enlarge Paddle
+            powerLarge = false;
             if ((powerLarge || powerLargeControl) && countEnlarge < 2)
             {
                 paddleRenderer.transform.localScale += new Vector3(0.5f, 0, 0);
@@ -199,16 +200,20 @@ public class Main : MonoBehaviour {
 
             if (tripleBall || tripleBallControl)
             {
-                extraball1.transform.position = ballNextPosition; 
-                extraball2.transform.position = ballNextPosition;
-                extraball1Direction.x = -ballDirection.x;
-                extraball1Direction.y = ballDirection.y;
-                extraball2Direction.x = ballDirection.x;
-                extraball2Direction.y = -ballDirection.y;
-                extraBall1isActive = true;
-                extraBall2isActive = true;
-                tripleBall = false;
-                tripleBallControl = false;
+                if (!extraBall1isActive & !extraBall2isActive)
+                {
+                    extraball1.transform.position = ballNextPosition;
+                    extraball2.transform.position = ballNextPosition;
+                    extraball1Direction.x = -ballDirection.x;
+                    extraball1Direction.y = ballDirection.y;
+                    extraball2Direction.x = ballDirection.x;
+                    extraball2Direction.y = -ballDirection.y;
+                    extraBall1isActive = true;
+                    extraBall2isActive = true;
+                    tripleBall = false;
+                    tripleBallControl = false;
+                }
+                
             }
             if (extraBall1isActive == true)
             {
@@ -455,6 +460,8 @@ public class Main : MonoBehaviour {
                     }
                     countSlowBall = 0;
                     countEnlarge = 0;
+                    powerLarge = false;
+                    slowBall = false;
 
                     if (lifeQuantity < 0)
                     {
