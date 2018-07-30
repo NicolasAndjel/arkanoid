@@ -7,8 +7,7 @@ public class Pills : MonoBehaviour {
 
     public string pillType;
     Vector3 pillDirection = new Vector3(0, -1, 0);
-    float pillSpeed = Main.pillsSpeed;
-
+    public float pillsSpeed = 1.5f;
 
     // Use this for initialization
     void Start () {
@@ -18,7 +17,7 @@ public class Pills : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         Vector3 pillPosition = this.transform.position;
-        this.transform.position += pillDirection * pillSpeed * Time.deltaTime;
+        this.transform.position += pillDirection * pillsSpeed * Time.deltaTime;
 
         //desaparecer la pill cuando toque la paddle
         if (Main.paddleCollider.bounds.Contains(pillPosition))
@@ -31,6 +30,10 @@ public class Pills : MonoBehaviour {
 
                 case "slowball":
                     Main.slowBall = true;
+                    break;
+
+                case "laser":
+                    Main.laser = true;
                     break;
 
                 case "tripleball":

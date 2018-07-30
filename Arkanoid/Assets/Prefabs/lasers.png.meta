@@ -1,10 +1,11 @@
 fileFormatVersion: 2
-guid: 988ca3b514d50a5478f433e8d4f2ed88
-timeCreated: 1532903676
+guid: 54d4a24da4162e5488754de3656e3ef6
+timeCreated: 1532907280
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: laserPaddle
+    21300000: lasers_0
+    21300002: lasers_1
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -47,7 +48,7 @@ TextureImporter:
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spritePixelsToUnits: 50
+  spritePixelsToUnits: 100
   alphaUsage: 1
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
@@ -81,13 +82,27 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: laserPaddle
+      name: lasers_0
       rect:
         serializedVersion: 2
-        x: 345
-        y: 267
-        width: 25
-        height: 6
+        x: 23
+        y: 130
+        width: 13
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: lasers_1
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 24
+        width: 8
+        height: 13
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

@@ -35,7 +35,7 @@ public class Main : MonoBehaviour {
     public GameObject[] lives;
     public int lifeQuantity;
     public Text scoreDisplay;
-    public int score;
+    public static int score;
 
     //menus
     public GameObject winPanel;
@@ -55,9 +55,11 @@ public class Main : MonoBehaviour {
     //Power Ups
     public static bool powerLarge = false;
     public static bool slowBall = false;
+    public static bool laser = false;
     public static bool tripleBall = false;
     public bool powerLargeControl = false;
     public bool slowBallControl = false;
+    public bool laserControl = false;
     public bool tripleBallControl = false;
     public GameObject extraball1;
     public GameObject extraball2;
@@ -65,15 +67,17 @@ public class Main : MonoBehaviour {
     Vector3 extraball2Direction;
     bool extraBall1isActive = false;
     bool extraBall2isActive = false;
-    public int countPowerUp;
+    public static int countPowerUp;
     System.Random rnd = new System.Random();
     public static int pillNumber;
     public GameObject[] pillArray;
-    Vector3 lastBrokenBrick;
+    public static Vector3 lastBrokenBrick;
     public int bricksTillPowerup;
-    public static float pillsSpeed = 1.5f;
     public int countEnlarge;
     public int countSlowBall;
+    public Sprite laserSprite;
+    public GameObject laserLeft;
+    public GameObject laserRight;
 
 
     // Use this for initialization
@@ -97,7 +101,8 @@ public class Main : MonoBehaviour {
             
             //Paddle Behavior
             paddleDirection.x = Input.GetAxis("Horizontal");
-            Vector3 paddleNextPosition = paddleRenderer.transform.position + paddleDirection * paddleSpeed * Time.deltaTime;
+            Vector3 paddlePosition = paddleRenderer.transform.position;
+            Vector3 paddleNextPosition = paddlePosition + paddleDirection * paddleSpeed * Time.deltaTime;
             
             if (gameArea.bounds.Contains(paddleNextPosition))
             {
@@ -155,20 +160,32 @@ public class Main : MonoBehaviour {
 
             if ((countPowerUp != 0) && (countPowerUp % bricksTillPowerup == 0))
             {
-                pillNumber = rnd.Next(0, 3);
-                GameObject thisPill = pillArray[pillNumber];
-                //Pills pills = thisPill.GetComponent<Pills>(); // dame el script que tiene asignado este objeto (bricks[i]) de unity. Ya no lo necesito pero lo dejo por si quiero acceder
-                Instantiate(thisPill, lastBrokenBrick, Quaternion.identity);
-                countPowerUp ++;
+                if ((tripleBall || tripleBallControl))
+                {
+                    pillNumber = rnd.Next(0, 3);
+                    GameObject thisPill = pillArray[pillNumber];
+                    //Pills pills = thisPill.GetComponent<Pills>(); // dame el script que tiene asignado este objeto (bricks[i]) de unity. Ya no lo necesito pero lo dejo por si quiero acceder
+                    Instantiate(thisPill, lastBrokenBrick, Quaternion.identity);
+                    countPowerUp++;
+                }
+                else
+                {
+                    pillNumber = rnd.Next(0, 4);
+                    GameObject thisPill = pillArray[pillNumber];
+                    //Pills pills = thisPill.GetComponent<Pills>(); // dame el script que tiene asignado este objeto (bricks[i]) de unity. Ya no lo necesito pero lo dejo por si quiero acceder
+                    Instantiate(thisPill, lastBrokenBrick, Quaternion.identity);
+                    countPowerUp ++;
+                }
+                
             }
 
 
             //Enlarge Paddle
-            powerLarge = false;
+            //powerLarge = false;
             if ((powerLarge || powerLargeControl) && countEnlarge < 2)
             {
                 paddleRenderer.transform.localScale += new Vector3(0.5f, 0, 0);
-                Vector3 paddlePosition = paddleRenderer.transform.position;
+                
                 if (paddlePosition.x > 2 )
                 {
                     paddleRenderer.transform.position -= new Vector3(0.4f, 0, 0);
@@ -277,7 +294,28 @@ public class Main : MonoBehaviour {
             {
                 extraball2NextPosition = new Vector3(50, 50, 0);
             }
-            
+
+
+            //Laser Paddle
+
+            if ((laser || laserControl))
+            {
+                paddleRenderer.sprite = laserSprite;
+                Vector3 paddleScale = paddleRenderer.transform.localScale;
+                Vector3 canonLeftPosition = paddlePosition - new Vector3((paddleScale.x / 2.4f), 0);// + new Vector3(0, 0.3f);
+                Vector3 canonRightPosition = paddlePosition + new Vector3((paddleScale.x / 2.4f), 0); ;// + new Vector3(0, 0.3f);
+                if (Input.GetKeyUp(KeyCode.Space))
+                {
+                    Instantiate(laserLeft, canonLeftPosition, Quaternion.identity);
+                    Instantiate(laserRight, canonRightPosition, Quaternion.identity);
+                    Debug.Log("Deberían dispararse los láseres");
+                    Debug.Log(paddleScale.x / 2);
+
+                }
+
+
+            }
+
 
             #endregion
 
@@ -362,6 +400,21 @@ public class Main : MonoBehaviour {
                         bricks[i].SetActive(false);
                         score += 100;
                         countPowerUp++;
+                    }
+                }
+
+                //Si los laseres tocan un brick
+
+                if (brickCollider.bounds.Contains(laserLeft.transform.position) ||
+                         brickCollider.bounds.Contains(laserRight.transform.position))
+                {
+                    if (brick.color != "Grey") // busco la propiedad color dentro de ese script.
+                    {
+                        lastBrokenBrick = bricks[i].transform.position;
+                        bricks[i].SetActive(false);
+                        score += 100;
+                        countPowerUp++;
+                        Debug.Log("laser pegó a un brick");
                     }
                 }
             }
@@ -482,10 +535,10 @@ public class Main : MonoBehaviour {
             #endregion
 
             #region UI
-            scoreDisplay.text = "Score: " + score;
+            scoreDisplay.text = "" + score;
 
             #endregion
-
+            
 
 
 
