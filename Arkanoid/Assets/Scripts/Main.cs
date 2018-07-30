@@ -75,9 +75,12 @@ public class Main : MonoBehaviour {
     public int bricksTillPowerup;
     public int countEnlarge;
     public int countSlowBall;
+    public Sprite regularSprite;
     public Sprite laserSprite;
     public GameObject laserLeft;
     public GameObject laserRight;
+    float laserTime;
+    public float laserDuration;
 
 
     // Use this for initialization
@@ -310,9 +313,17 @@ public class Main : MonoBehaviour {
                     Instantiate(laserRight, canonRightPosition, Quaternion.identity);
                     Debug.Log("Deberían dispararse los láseres");
                     Debug.Log(paddleScale.x / 2);
-
                 }
 
+                laserTime += Time.deltaTime;
+
+                if (laserTime >= laserDuration)
+                {
+                    laser = false;
+                    laserControl = false;
+                    paddleRenderer.sprite = regularSprite;
+                    laserTime = 0;
+                }
 
             }
 
@@ -403,20 +414,6 @@ public class Main : MonoBehaviour {
                     }
                 }
 
-                //Si los laseres tocan un brick
-
-                if (brickCollider.bounds.Contains(laserLeft.transform.position) ||
-                         brickCollider.bounds.Contains(laserRight.transform.position))
-                {
-                    if (brick.color != "Grey") // busco la propiedad color dentro de ese script.
-                    {
-                        lastBrokenBrick = bricks[i].transform.position;
-                        bricks[i].SetActive(false);
-                        score += 100;
-                        countPowerUp++;
-                        Debug.Log("laser pegó a un brick");
-                    }
-                }
             }
             #endregion
 
@@ -464,7 +461,11 @@ public class Main : MonoBehaviour {
                     countSlowBall = 0;
                     countEnlarge = 0;
                     powerLarge = false;
+                    powerLargeControl = false;
                     slowBall = false;
+                    slowBallControl = false;
+                    laser = false;
+                    laserControl = false;
 
                     if (lifeQuantity < 0)
                     {
@@ -514,7 +515,11 @@ public class Main : MonoBehaviour {
                     countSlowBall = 0;
                     countEnlarge = 0;
                     powerLarge = false;
+                    powerLargeControl = false;
                     slowBall = false;
+                    slowBallControl = false;
+                    laser = false;
+                    laserControl = false;
 
                     if (lifeQuantity < 0)
                     {
