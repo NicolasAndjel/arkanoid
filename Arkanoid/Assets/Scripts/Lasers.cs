@@ -59,6 +59,10 @@ public class Lasers : MonoBehaviour {
                 //Destruyo el laser
                 Destroy(gameObject);
             }
+            else if (main.losePanel.activeInHierarchy || main.winPanel.activeInHierarchy)
+            {
+                Destroy(gameObject);
+            }
         }
     }
 }
