@@ -32,14 +32,21 @@ public class Lasers : MonoBehaviour {
                 if (brick.color == "Grey")
                 {
                     brick.timesHit++;
-                    if (brick.timesHit == 2)
+                    if (brick.timesHit == 1)
+                    {
+                        SpriteRenderer greyTileRenderer = main.bricks[i].GetComponent<SpriteRenderer>();
+                        greyTileRenderer.sprite = main.brokenGreyTileSprite;
+                        Debug.Log("tiro recibido, debería verse roto");
+                    }
+                    else if (brick.timesHit == 2)
                     {
                         Main.lastBrokenBrick = main.bricks[i].transform.position;
                         main.bricks[i].SetActive(false);
                         Main.score += 200;
                         Main.countPowerUp++;
+                        Debug.Log("tiro 2 recibido, debería romperse");
                     }
-       
+
                 }
                 else if (brick.color != "Gold") // busco la propiedad color dentro de ese script.
                 {

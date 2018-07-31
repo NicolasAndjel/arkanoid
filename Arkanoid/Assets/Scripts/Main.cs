@@ -360,7 +360,7 @@ public class Main : MonoBehaviour {
                             SpriteRenderer greyTileRenderer = bricks[i].GetComponent<SpriteRenderer>();
                             greyTileRenderer.sprite = brokenGreyTileSprite;
                         }
-                        else if (brick.timesHit >= 2)
+                        else if (brick.timesHit == 2)
                         {
                             lastBrokenBrick = bricks[i].transform.position;
                             bricks[i].SetActive(false);
@@ -387,7 +387,7 @@ public class Main : MonoBehaviour {
                             SpriteRenderer greyTileRenderer = bricks[i].GetComponent<SpriteRenderer>();
                             greyTileRenderer.sprite = brokenGreyTileSprite;
                         }
-                        else if (brick.timesHit >= 2)
+                        else if (brick.timesHit == 2)
                         {
                             lastBrokenBrick = bricks[i].transform.position;
                             bricks[i].SetActive(false);
@@ -416,7 +416,7 @@ public class Main : MonoBehaviour {
                             SpriteRenderer greyTileRenderer = bricks[i].GetComponent<SpriteRenderer>();
                             greyTileRenderer.sprite = brokenGreyTileSprite;
                         }
-                        else if (brick.timesHit >= 2)
+                        else if (brick.timesHit == 2)
                         {
                             lastBrokenBrick = bricks[i].transform.position;
                             bricks[i].SetActive(false);
@@ -443,7 +443,7 @@ public class Main : MonoBehaviour {
                             SpriteRenderer greyTileRenderer = bricks[i].GetComponent<SpriteRenderer>();
                             greyTileRenderer.sprite = brokenGreyTileSprite;
                         }
-                        else if (brick.timesHit >= 2)
+                        else if (brick.timesHit == 2)
                         {
                             lastBrokenBrick = bricks[i].transform.position;
                             bricks[i].SetActive(false);
@@ -472,7 +472,7 @@ public class Main : MonoBehaviour {
                             SpriteRenderer greyTileRenderer = bricks[i].GetComponent<SpriteRenderer>();
                             greyTileRenderer.sprite = brokenGreyTileSprite;
                         }
-                        else if (brick.timesHit >= 2)
+                        else if (brick.timesHit == 2)
                         {
                             lastBrokenBrick = bricks[i].transform.position;
                             bricks[i].SetActive(false);
@@ -499,7 +499,7 @@ public class Main : MonoBehaviour {
                             SpriteRenderer greyTileRenderer = bricks[i].GetComponent<SpriteRenderer>();
                             greyTileRenderer.sprite = brokenGreyTileSprite;
                         }
-                        else if (brick.timesHit >= 2)
+                        else if (brick.timesHit == 2)
                         {
                             lastBrokenBrick = bricks[i].transform.position;
                             bricks[i].SetActive(false);
