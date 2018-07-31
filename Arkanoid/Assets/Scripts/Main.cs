@@ -31,6 +31,8 @@ public class Main : MonoBehaviour {
     public GameObject purpleTilePrefab;
     public GameObject greenTilePrefab;
     public GameObject greyTilePrefab;
+    public GameObject goldTilePrefab;
+    public Sprite brokenGreyTileSprite;
     //lives and score
     public GameObject[] lives;
     public int lifeQuantity;
@@ -326,6 +328,10 @@ public class Main : MonoBehaviour {
                 }
 
             }
+            else
+            {
+                paddleRenderer.sprite = regularSprite;
+            }
 
 
             #endregion
@@ -346,7 +352,23 @@ public class Main : MonoBehaviour {
                 if (brickCollider.bounds.Contains(ballNextPosition) && (brickBallDiff < brickHeightTop && brickBallDiff > brickHeightBottom))
                 {
                     ballDirection.x *= -1;
-                    if (brick.color != "Grey") // busco la propiedad color dentro de ese script.
+                    if (brick.color == "Grey")
+                    {
+                        brick.timesHit++;
+                        if (brick.timesHit == 1)
+                        {
+                            SpriteRenderer greyTileRenderer = bricks[i].GetComponent<SpriteRenderer>();
+                            greyTileRenderer.sprite = brokenGreyTileSprite;
+                        }
+                        else if (brick.timesHit >= 2)
+                        {
+                            lastBrokenBrick = bricks[i].transform.position;
+                            bricks[i].SetActive(false);
+                            score += 200;
+                            countPowerUp++;
+                        }
+                    }
+                    else if (brick.color != "Gold") // busco la propiedad color dentro de ese script.
                     {
                         lastBrokenBrick = bricks[i].transform.position;
                         bricks[i].SetActive(false);
@@ -357,7 +379,23 @@ public class Main : MonoBehaviour {
                 else if (brickCollider.bounds.Contains(ballNextPosition))
                 {
                     ballDirection.y *= -1;
-                    if (brick.color != "Grey") // busco la propiedad color dentro de ese script.
+                    if (brick.color == "Grey")
+                    {
+                        brick.timesHit++;
+                        if (brick.timesHit == 1)
+                        {
+                            SpriteRenderer greyTileRenderer = bricks[i].GetComponent<SpriteRenderer>();
+                            greyTileRenderer.sprite = brokenGreyTileSprite;
+                        }
+                        else if (brick.timesHit >= 2)
+                        {
+                            lastBrokenBrick = bricks[i].transform.position;
+                            bricks[i].SetActive(false);
+                            score += 200;
+                            countPowerUp++;
+                        }
+                    }
+                    else if (brick.color != "Gold") // busco la propiedad color dentro de ese script.
                     {
                         lastBrokenBrick = bricks[i].transform.position;
                         bricks[i].SetActive(false);
@@ -370,7 +408,23 @@ public class Main : MonoBehaviour {
                 if (brickCollider.bounds.Contains(extraball1NextPosition) && (brickextraBall1Diff < brickHeightTop && brickextraBall1Diff > brickHeightBottom))
                 {
                     extraball1Direction.x *= -1;
-                    if (brick.color != "Grey") // busco la propiedad color dentro de ese script.
+                    if (brick.color == "Grey")
+                    {
+                        brick.timesHit++;
+                        if (brick.timesHit == 1)
+                        {
+                            SpriteRenderer greyTileRenderer = bricks[i].GetComponent<SpriteRenderer>();
+                            greyTileRenderer.sprite = brokenGreyTileSprite;
+                        }
+                        else if (brick.timesHit >= 2)
+                        {
+                            lastBrokenBrick = bricks[i].transform.position;
+                            bricks[i].SetActive(false);
+                            score += 200;
+                            countPowerUp++;
+                        }
+                    }
+                    else if (brick.color != "Gold") // busco la propiedad color dentro de ese script.
                     {
                         lastBrokenBrick = bricks[i].transform.position;
                         bricks[i].SetActive(false);
@@ -381,7 +435,23 @@ public class Main : MonoBehaviour {
                 else if (brickCollider.bounds.Contains(extraball1NextPosition))
                 {
                     extraball1Direction.y *= -1;
-                    if (brick.color != "Grey") // busco la propiedad color dentro de ese script.
+                    if (brick.color == "Grey")
+                    {
+                        brick.timesHit++;
+                        if (brick.timesHit == 1)
+                        {
+                            SpriteRenderer greyTileRenderer = bricks[i].GetComponent<SpriteRenderer>();
+                            greyTileRenderer.sprite = brokenGreyTileSprite;
+                        }
+                        else if (brick.timesHit >= 2)
+                        {
+                            lastBrokenBrick = bricks[i].transform.position;
+                            bricks[i].SetActive(false);
+                            score += 200;
+                            countPowerUp++;
+                        }
+                    }
+                    else if (brick.color != "Gold") // busco la propiedad color dentro de ese script.
                     {
                         lastBrokenBrick = bricks[i].transform.position;
                         bricks[i].SetActive(false);
@@ -394,7 +464,23 @@ public class Main : MonoBehaviour {
                 if (brickCollider.bounds.Contains(extraball2NextPosition) && (brickextraBall2Diff < brickHeightTop && brickextraBall2Diff > brickHeightBottom))
                 {
                     extraball2Direction.x *= -1;
-                    if (brick.color != "Grey") // busco la propiedad color dentro de ese script.
+                    if (brick.color == "Grey")
+                    {
+                        brick.timesHit++;
+                        if (brick.timesHit == 1)
+                        {
+                            SpriteRenderer greyTileRenderer = bricks[i].GetComponent<SpriteRenderer>();
+                            greyTileRenderer.sprite = brokenGreyTileSprite;
+                        }
+                        else if (brick.timesHit >= 2)
+                        {
+                            lastBrokenBrick = bricks[i].transform.position;
+                            bricks[i].SetActive(false);
+                            score += 200;
+                            countPowerUp++;
+                        }
+                    }
+                    else if (brick.color != "Gold") // busco la propiedad color dentro de ese script.
                     {
                         lastBrokenBrick = bricks[i].transform.position;
                         bricks[i].SetActive(false);
@@ -405,7 +491,23 @@ public class Main : MonoBehaviour {
                 else if (brickCollider.bounds.Contains(extraball2NextPosition))
                 {
                     extraball2Direction.y *= -1;
-                    if (brick.color != "Grey") // busco la propiedad color dentro de ese script.
+                    if (brick.color == "Grey")
+                    {
+                        brick.timesHit++;
+                        if (brick.timesHit == 1)
+                        {
+                            SpriteRenderer greyTileRenderer = bricks[i].GetComponent<SpriteRenderer>();
+                            greyTileRenderer.sprite = brokenGreyTileSprite;
+                        }
+                        else if (brick.timesHit >= 2)
+                        {
+                            lastBrokenBrick = bricks[i].transform.position;
+                            bricks[i].SetActive(false);
+                            score += 200;
+                            countPowerUp++;
+                        }
+                    }
+                    else if (brick.color != "Gold") // busco la propiedad color dentro de ese script.
                     {
                         lastBrokenBrick = bricks[i].transform.position;
                         bricks[i].SetActive(false);
@@ -421,7 +523,7 @@ public class Main : MonoBehaviour {
             for (int i = 0; i < bricks.Length; i++)
             {
                 Brick brick = bricks[i].GetComponent<Brick>(); // dame el script que tiene asignado este objeto (bricks[i]) de unity.
-                if (brick.color == "" && brick.isActiveAndEnabled)
+                if ((brick.color == "" || brick.color == "Grey") && brick.isActiveAndEnabled)
                 {
                     endGame = false;
                     break;
@@ -466,6 +568,7 @@ public class Main : MonoBehaviour {
                     slowBallControl = false;
                     laser = false;
                     laserControl = false;
+                    paddleRenderer.sprite = regularSprite;
 
                     if (lifeQuantity < 0)
                     {
@@ -520,6 +623,7 @@ public class Main : MonoBehaviour {
                     slowBallControl = false;
                     laser = false;
                     laserControl = false;
+                    paddleRenderer.sprite = regularSprite;
 
                     if (lifeQuantity < 0)
                     {

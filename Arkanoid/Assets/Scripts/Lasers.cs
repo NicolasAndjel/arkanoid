@@ -22,13 +22,26 @@ public class Lasers : MonoBehaviour {
 
         for (int i = 0; i < main.bricks.Length; i++)
         {
-            //Obtengo el collider del enemigo
+            //Obtengo el collider del brick
             BoxCollider2D brickCollider = main.bricks[i].GetComponent<BoxCollider2D>();
             Brick brick = main.bricks[i].GetComponent<Brick>();
-            //Chequeo la interseccin del enemigo y la bala
+            
+            //Chequeo la interseccin del brick y el laser
             if (brickCollider.bounds.Contains(transform.position))
             {
-                if (brick.color != "Grey") // busco la propiedad color dentro de ese script.
+                if (brick.color == "Grey")
+                {
+                    brick.timesHit++;
+                    if (brick.timesHit == 2)
+                    {
+                        Main.lastBrokenBrick = main.bricks[i].transform.position;
+                        main.bricks[i].SetActive(false);
+                        Main.score += 200;
+                        Main.countPowerUp++;
+                    }
+       
+                }
+                else if (brick.color != "Gold") // busco la propiedad color dentro de ese script.
                 {
                     Main.lastBrokenBrick = main.bricks[i].transform.position;
                     main.bricks[i].SetActive(false);

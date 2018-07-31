@@ -5,6 +5,7 @@ using UnityEngine;
 public class Brick : MonoBehaviour {
 
     public string color;
+    public int timesHit;
 
     void Start () {
 		
