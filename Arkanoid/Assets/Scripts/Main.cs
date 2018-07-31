@@ -84,6 +84,23 @@ public class Main : MonoBehaviour {
     float laserTime;
     public float laserDuration;
 
+    //sounds
+    public AudioClip wallBounceSound;
+    public AudioClip regularBrickHitSound;
+    public AudioClip greyBrickHitSound;
+    public AudioClip goldBrickHitSound;
+    public AudioClip startSound;
+    public AudioClip lifeLossSound;
+    public AudioClip gameOverSound;
+    public AudioClip winSound;
+    public AudioClip enlargeSound;
+    public AudioClip shootSound;
+    public AudioClip backgroundMusic;
+    private AudioSource source;
+    private float volLowRange = 0.5f;
+    private float volHighRange = 1.0f;
+
+
 
     // Use this for initialization
     void Start () {
@@ -97,6 +114,11 @@ public class Main : MonoBehaviour {
         paddleHeightTop = (paddleCollider.size.y / 2);// borde superior del paddle
         Vector3 paddleInitialScale = paddleRenderer.transform.localScale;
         Vector3 paddleInitialposition = paddleRenderer.transform.position;
+
+        source = GetComponent<AudioSource>();
+        float vol = Random.Range(volLowRange, volHighRange);
+        source = GetComponent<AudioSource>();
+        source.PlayOneShot(startSound, vol);
     }
 
     // Update is called once per frame
@@ -143,6 +165,7 @@ public class Main : MonoBehaviour {
                 )
             {
                 ballDirection.x *= -1;
+                source.PlayOneShot(wallBounceSound);
             }
 
             else if (
@@ -151,7 +174,8 @@ public class Main : MonoBehaviour {
                 )
             {
                 ballDirection.y *= -1;
-                
+                source.PlayOneShot(wallBounceSound);
+
                 float ballPaddleDiff = paddleCollider.transform.position.y - ballRenderer.transform.position.y;
                 if (paddleCollider.bounds.Contains(ballNextPosition) && (ballPaddleDiff < paddleHeightTop && ballPaddleDiff > paddleHeightBottom))
                 {
@@ -209,9 +233,9 @@ public class Main : MonoBehaviour {
 
             //SlowBall
 
-            if ((slowBall || slowBallControl) && countSlowBall < 2)
+            if ((slowBall || slowBallControl) && countSlowBall < 1)
             {
-                ballSpeed -= 0.7f;
+                ballSpeed -= 1f;
                 slowBall = false;
                 slowBallControl = false;
                 countSlowBall++;
@@ -248,6 +272,7 @@ public class Main : MonoBehaviour {
                 )
                 {
                     extraball1Direction.x *= -1;
+                    source.PlayOneShot(wallBounceSound);
                 }
 
                 else if (
@@ -256,6 +281,7 @@ public class Main : MonoBehaviour {
                     )
                 {
                     extraball1Direction.y *= -1;
+                    source.PlayOneShot(wallBounceSound);
                     float ballPaddleDiff = paddleCollider.transform.position.y - extraball1.transform.position.y;
                     if (paddleCollider.bounds.Contains(extraball1NextPosition) && (ballPaddleDiff < paddleHeightTop && ballPaddleDiff > paddleHeightBottom))
                     {
@@ -280,6 +306,7 @@ public class Main : MonoBehaviour {
                 )
                 {
                     extraball2Direction.x *= -1;
+                    source.PlayOneShot(wallBounceSound);
                 }
 
                 else if (
@@ -288,6 +315,7 @@ public class Main : MonoBehaviour {
                     )
                 {
                     extraball2Direction.y *= -1;
+                    source.PlayOneShot(wallBounceSound);
                     float ballPaddleDiff = paddleCollider.transform.position.y - extraball2.transform.position.y;
                     if (paddleCollider.bounds.Contains(extraball2NextPosition) && (ballPaddleDiff < paddleHeightTop && ballPaddleDiff > paddleHeightBottom))
                     {
@@ -306,6 +334,8 @@ public class Main : MonoBehaviour {
             if ((laser || laserControl))
             {
                 paddleRenderer.sprite = laserSprite;
+                //source.PlayOneShot(enlargeSound);
+
                 Vector3 paddleScale = paddleRenderer.transform.localScale;
                 Vector3 canonLeftPosition = paddlePosition - new Vector3((paddleScale.x / 2.4f), 0);// + new Vector3(0, 0.3f);
                 Vector3 canonRightPosition = paddlePosition + new Vector3((paddleScale.x / 2.4f), 0); ;// + new Vector3(0, 0.3f);
@@ -313,7 +343,7 @@ public class Main : MonoBehaviour {
                 {
                     Instantiate(laserLeft, canonLeftPosition, Quaternion.identity);
                     Instantiate(laserRight, canonRightPosition, Quaternion.identity);
-                    Debug.Log("Deberían dispararse los láseres");
+                    source.PlayOneShot(shootSound);
                     Debug.Log(paddleScale.x / 2);
                 }
 
@@ -355,6 +385,7 @@ public class Main : MonoBehaviour {
                     if (brick.color == "Grey")
                     {
                         brick.timesHit++;
+                        source.PlayOneShot(greyBrickHitSound);
                         if (brick.timesHit == 1)
                         {
                             SpriteRenderer greyTileRenderer = bricks[i].GetComponent<SpriteRenderer>();
@@ -374,6 +405,11 @@ public class Main : MonoBehaviour {
                         bricks[i].SetActive(false);
                         score += 100;
                         countPowerUp++;
+                        source.PlayOneShot(regularBrickHitSound);
+                    }
+                    else if (brick.color == "Gold")
+                    {
+                        source.PlayOneShot(goldBrickHitSound);
                     }
                 }
                 else if (brickCollider.bounds.Contains(ballNextPosition))
@@ -382,6 +418,7 @@ public class Main : MonoBehaviour {
                     if (brick.color == "Grey")
                     {
                         brick.timesHit++;
+                        source.PlayOneShot(greyBrickHitSound);
                         if (brick.timesHit == 1)
                         {
                             SpriteRenderer greyTileRenderer = bricks[i].GetComponent<SpriteRenderer>();
@@ -401,6 +438,11 @@ public class Main : MonoBehaviour {
                         bricks[i].SetActive(false);
                         score += 100;
                         countPowerUp++;
+                        source.PlayOneShot(regularBrickHitSound);
+                    }
+                    else if (brick.color == "Gold")
+                    {
+                        source.PlayOneShot(goldBrickHitSound);
                     }
                 }
                 
@@ -411,6 +453,7 @@ public class Main : MonoBehaviour {
                     if (brick.color == "Grey")
                     {
                         brick.timesHit++;
+                        source.PlayOneShot(greyBrickHitSound);
                         if (brick.timesHit == 1)
                         {
                             SpriteRenderer greyTileRenderer = bricks[i].GetComponent<SpriteRenderer>();
@@ -430,6 +473,11 @@ public class Main : MonoBehaviour {
                         bricks[i].SetActive(false);
                         score += 100;
                         countPowerUp++;
+                        source.PlayOneShot(regularBrickHitSound);
+                    }
+                    else if (brick.color == "Gold")
+                    {
+                        source.PlayOneShot(goldBrickHitSound);
                     }
                 }
                 else if (brickCollider.bounds.Contains(extraball1NextPosition))
@@ -438,6 +486,7 @@ public class Main : MonoBehaviour {
                     if (brick.color == "Grey")
                     {
                         brick.timesHit++;
+                        source.PlayOneShot(greyBrickHitSound);
                         if (brick.timesHit == 1)
                         {
                             SpriteRenderer greyTileRenderer = bricks[i].GetComponent<SpriteRenderer>();
@@ -457,6 +506,11 @@ public class Main : MonoBehaviour {
                         bricks[i].SetActive(false);
                         score += 100;
                         countPowerUp++;
+                        source.PlayOneShot(regularBrickHitSound);
+                    }
+                    else if (brick.color == "Gold")
+                    {
+                        source.PlayOneShot(goldBrickHitSound);
                     }
                 }
 
@@ -467,6 +521,7 @@ public class Main : MonoBehaviour {
                     if (brick.color == "Grey")
                     {
                         brick.timesHit++;
+                        source.PlayOneShot(greyBrickHitSound);
                         if (brick.timesHit == 1)
                         {
                             SpriteRenderer greyTileRenderer = bricks[i].GetComponent<SpriteRenderer>();
@@ -486,6 +541,11 @@ public class Main : MonoBehaviour {
                         bricks[i].SetActive(false);
                         score += 100;
                         countPowerUp++;
+                        source.PlayOneShot(regularBrickHitSound);
+                    }
+                    else if (brick.color == "Gold")
+                    {
+                        source.PlayOneShot(goldBrickHitSound);
                     }
                 }
                 else if (brickCollider.bounds.Contains(extraball2NextPosition))
@@ -494,6 +554,7 @@ public class Main : MonoBehaviour {
                     if (brick.color == "Grey")
                     {
                         brick.timesHit++;
+                        source.PlayOneShot(greyBrickHitSound);
                         if (brick.timesHit == 1)
                         {
                             SpriteRenderer greyTileRenderer = bricks[i].GetComponent<SpriteRenderer>();
@@ -513,6 +574,11 @@ public class Main : MonoBehaviour {
                         bricks[i].SetActive(false);
                         score += 100;
                         countPowerUp++;
+                        source.PlayOneShot(regularBrickHitSound);
+                    }
+                    else if (brick.color == "Gold")
+                    {
+                        source.PlayOneShot(goldBrickHitSound);
                     }
                 }
 
@@ -532,6 +598,7 @@ public class Main : MonoBehaviour {
             if (endGame) 
             {
                 winPanel.SetActive(true);
+                source.PlayOneShot(winSound);
             }
             #endregion
 
@@ -574,6 +641,8 @@ public class Main : MonoBehaviour {
                     {
                         ballRenderer.transform.position = new Vector3(9999, 9999);
                         losePanel.SetActive(true);
+                        source.PlayOneShot(gameOverSound);
+
 
                     }
                     else
@@ -581,6 +650,7 @@ public class Main : MonoBehaviour {
                         for (int i = 0; i < lives.Length; i++)
                         {
                             lives[lifeQuantity].SetActive(false);
+                            source.PlayOneShot(lifeLossSound);
                         }
                     }
                 }
@@ -629,12 +699,14 @@ public class Main : MonoBehaviour {
                     {
                         ballRenderer.transform.position = new Vector3(9999, 9999);
                         losePanel.SetActive(true);
+                        source.PlayOneShot(gameOverSound);
                     }
                     else
                     {
                         for (int i = 0; i < lives.Length; i++)
                         {
                             lives[lifeQuantity].SetActive(false);
+                            source.PlayOneShot(lifeLossSound);
                         }
                     }
                 }
