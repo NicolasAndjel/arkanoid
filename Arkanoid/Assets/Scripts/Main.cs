@@ -77,6 +77,7 @@ public class Main : MonoBehaviour {
     public int bricksTillPowerup;
     public int countEnlarge;
     public int countSlowBall;
+    public int tripleBallCount;
     public Sprite regularSprite;
     public Sprite laserSprite;
     public GameObject laserLeft;
@@ -189,7 +190,7 @@ public class Main : MonoBehaviour {
 
             if ((countPowerUp != 0) && (countPowerUp % bricksTillPowerup == 0))
             {
-                if ((tripleBall || tripleBallControl))
+                if (tripleBallCount >= 1)
                 {
                     pillNumber = rnd.Next(0, 3);
                     GameObject thisPill = pillArray[pillNumber];
@@ -258,6 +259,7 @@ public class Main : MonoBehaviour {
                     extraBall2isActive = true;
                     tripleBall = false;
                     tripleBallControl = false;
+                    tripleBallCount++;
                 }
                 
             }
@@ -609,7 +611,7 @@ public class Main : MonoBehaviour {
                 {
                     lifeQuantity -= 1;
                     kickOff = false;
-                    if (countSlowBall > 1)
+                    if (countSlowBall >= 1)
                     {
                         ballSpeed = 3f;
                         Debug.Log("La velocidad debería ser 3f, el count slowball era mayor a 1");
@@ -629,6 +631,7 @@ public class Main : MonoBehaviour {
                     }
                     countSlowBall = 0;
                     countEnlarge = 0;
+                    tripleBallCount = 0;
                     powerLarge = false;
                     powerLargeControl = false;
                     slowBall = false;
@@ -667,7 +670,7 @@ public class Main : MonoBehaviour {
                     Debug.Log("Quedan " + lifeQuantity + " vidas");
                     kickOff = false;
 
-                    if (countSlowBall > 1)
+                    if (countSlowBall >= 1)
                     {
                         ballSpeed = 3f;
                         Debug.Log("La velocidad debería ser 3f, el count slowball era mayor a 1");
@@ -687,6 +690,7 @@ public class Main : MonoBehaviour {
                     }
                     countSlowBall = 0;
                     countEnlarge = 0;
+                    tripleBallCount = 0;
                     powerLarge = false;
                     powerLargeControl = false;
                     slowBall = false;
