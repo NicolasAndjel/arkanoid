@@ -236,7 +236,7 @@ public class Main : MonoBehaviour {
 
             if ((slowBall || slowBallControl) && countSlowBall < 1)
             {
-                ballSpeed -= 1f;
+                ballSpeed -= 0.7f;
                 slowBall = false;
                 slowBallControl = false;
                 countSlowBall++;
@@ -599,6 +599,34 @@ public class Main : MonoBehaviour {
             }
             if (endGame) 
             {
+                if (countSlowBall >= 1)
+                {
+                    ballSpeed = 2.7f;
+                    Debug.Log("La velocidad debería ser 3f, el count slowball era mayor a 1");
+                }
+
+                if (countEnlarge == 1)
+                {
+                    paddleRenderer.transform.localScale -= new Vector3(0.5f, 0, 0);
+                    gameArea.transform.localScale += new Vector3(0.1f, 0, 0);
+                    Debug.Log("La paleta debería haber vuelto a su tamaño inicial, el count enlarge era igual a 1");
+                }
+                else if (countEnlarge > 1)
+                {
+                    paddleRenderer.transform.localScale -= new Vector3(1f, 0, 0);
+                    gameArea.transform.localScale += new Vector3(0.2f, 0, 0);
+                    Debug.Log("La paleta debería haber vuelto a su tamaño inicial, el count enlarge era mayor a 1");
+                }
+                countSlowBall = 0;
+                countEnlarge = 0;
+                tripleBallCount = 0;
+                powerLarge = false;
+                powerLargeControl = false;
+                slowBall = false;
+                slowBallControl = false;
+                laser = false;
+                laserControl = false;
+                paddleRenderer.sprite = regularSprite;
                 winPanel.SetActive(true);
                 source.PlayOneShot(winSound);
             }
@@ -613,7 +641,7 @@ public class Main : MonoBehaviour {
                     kickOff = false;
                     if (countSlowBall >= 1)
                     {
-                        ballSpeed = 3f;
+                        ballSpeed = 2.7f;
                         Debug.Log("La velocidad debería ser 3f, el count slowball era mayor a 1");
                     }
 
@@ -672,7 +700,7 @@ public class Main : MonoBehaviour {
 
                     if (countSlowBall >= 1)
                     {
-                        ballSpeed = 3f;
+                        ballSpeed = 2.7f;
                         Debug.Log("La velocidad debería ser 3f, el count slowball era mayor a 1");
                     }
 
